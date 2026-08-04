@@ -1,520 +1,211 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <!-- Primary Meta Tags -->
-  <!-- TODO: Replace with your paper title and author names -->
-  <meta name="title" content="PAPER_TITLE - AUTHOR_NAMES">
-  <!-- TODO: Write a compelling 150-160 character description of your research -->
-  <meta name="description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Add 5-10 relevant keywords for your research area -->
-  <meta name="keywords" content="KEYWORD1, KEYWORD2, KEYWORD3, machine learning, computer vision, AI">
-  <!-- TODO: List all authors -->
-  <meta name="author" content="FIRST_AUTHOR_NAME, SECOND_AUTHOR_NAME">
-  <meta name="robots" content="index, follow">
-  <meta name="language" content="English">
-  
-  <!-- Open Graph / Facebook -->
+  <meta name="theme-color" content="#f6f8fb">
+  <meta name="description" content="PECA: A benchmark and physically- and epipolar-constrained cross attention for heterogeneous stereo deblurring.">
+  <meta name="keywords" content="PECA, HSD, stereo deblurring, cross attention, computational photography, ECCV 2026">
+  <meta name="author" content="Hoju Shin, Jiah Kim, Seung-Wook Kim, Seowon Ji">
   <meta property="og:type" content="article">
-  <!-- TODO: Replace with your institution or lab name -->
-  <meta property="og:site_name" content="INSTITUTION_OR_LAB_NAME">
-  <!-- TODO: Same as paper title above -->
-  <meta property="og:title" content="PAPER_TITLE">
-  <!-- TODO: Same as description above -->
-  <meta property="og:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Replace with your actual website URL -->
-  <meta property="og:url" content="https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE">
-  <!-- TODO: Create a 1200x630px preview image and update path -->
-  <meta property="og:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="PAPER_TITLE - Research Preview">
-  <meta property="article:published_time" content="2024-01-01T00:00:00.000Z">
-  <meta property="article:author" content="FIRST_AUTHOR_NAME">
-  <meta property="article:section" content="Research">
-  <meta property="article:tag" content="KEYWORD1">
-  <meta property="article:tag" content="KEYWORD2">
-
-  <!-- Twitter -->
+  <meta property="og:title" content="PECA — Heterogeneous Stereo Deblurring">
+  <meta property="og:description" content="A benchmark for heterogeneous stereo deblurring with physically- and epipolar-constrained cross attention.">
+  <meta property="og:image" content="static/images/overview.png">
   <meta name="twitter:card" content="summary_large_image">
-  <!-- TODO: Replace with your lab/institution Twitter handle -->
-  <meta name="twitter:site" content="@YOUR_TWITTER_HANDLE">
-  <!-- TODO: Replace with first author's Twitter handle -->
-  <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">
-  <!-- TODO: Same as paper title above -->
-  <meta name="twitter:title" content="PAPER_TITLE">
-  <!-- TODO: Same as description above -->
-  <meta name="twitter:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Same as social preview image above -->
-  <meta name="twitter:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
-  <meta name="twitter:image:alt" content="PAPER_TITLE - Research Preview">
-
-  <!-- Academic/Research Specific -->
-  <meta name="citation_title" content="PAPER_TITLE">
-  <meta name="citation_author" content="FIRST_AUTHOR_LAST, FIRST_AUTHOR_FIRST">
-  <meta name="citation_author" content="SECOND_AUTHOR_LAST, SECOND_AUTHOR_FIRST">
-  <meta name="citation_publication_date" content="2024">
-  <meta name="citation_conference_title" content="CONFERENCE_NAME">
-  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/paper.pdf">
-  
-  <!-- Additional SEO -->
-  <meta name="theme-color" content="#2563eb">
-  <meta name="msapplication-TileColor" content="#2563eb">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  
-  <!-- Preconnect for performance -->
+  <meta name="citation_title" content="A Benchmark for Heterogeneous Stereo Deblurring with Physically- and Epipolar-constrained Cross Attention">
+  <meta name="citation_author" content="Shin, Hoju">
+  <meta name="citation_author" content="Kim, Jiah">
+  <meta name="citation_author" content="Kim, Seung-Wook">
+  <meta name="citation_author" content="Ji, Seowon">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="European Conference on Computer Vision">
+  <meta name="citation_pdf_url" content="static/pdfs/PECA.pdf">
+  <title>PECA | Heterogeneous Stereo Deblurring</title>
+  <!-- <link rel="icon" href="static/images/favicon.ico"> -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://ajax.googleapis.com">
-  <link rel="preconnect" href="https://documentcloud.adobe.com">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-
-
-  <!-- TODO: Replace with your paper title and authors -->
-  <title>PAPER_TITLE - AUTHOR_NAMES | Academic Research</title>
-  
-  <!-- Favicon and App Icons -->
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
-  <link rel="apple-touch-icon" href="static/images/favicon.ico">
-  
-  <!-- Critical CSS - Load synchronously -->
-  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="static/css/index.css">
-  
-  <!-- Non-critical CSS - Load asynchronously -->
-  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  
-  <!-- Fallback for browsers that don't support preload -->
-  <noscript>
-    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
-    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
-    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  </noscript>
-  
-  <!-- Fonts - Optimized loading -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Defer non-critical JavaScript -->
-  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-  <script defer src="static/js/fontawesome.all.min.js"></script>
-  <script defer src="static/js/bulma-carousel.min.js"></script>
-  <script defer src="static/js/bulma-slider.min.js"></script>
-  <script defer src="static/js/index.js"></script>
-  
-  <!-- Structured Data for Academic Papers -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ScholarlyArticle",
-    "headline": "PAPER_TITLE",
-    "description": "BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS",
-    "author": [
-      {
-        "@type": "Person",
-        "name": "FIRST_AUTHOR_NAME",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "INSTITUTION_NAME"
-        }
-      },
-      {
-        "@type": "Person",
-        "name": "SECOND_AUTHOR_NAME",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "INSTITUTION_NAME"
-        }
-      }
-    ],
-    "datePublished": "2024-01-01",
-    "publisher": {
-      "@type": "Organization",
-      "name": "CONFERENCE_OR_JOURNAL_NAME"
-    },
-    "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
-    "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
-    "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "machine learning", "computer vision"],
-    "abstract": "FULL_ABSTRACT_TEXT_HERE",
-    "citation": "BIBTEX_CITATION_HERE",
-    "isAccessibleForFree": true,
-    "license": "https://creativecommons.org/licenses/by/4.0/",
-    "mainEntity": {
-      "@type": "WebPage",
-      "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE"
-    },
-    "about": [
-      {
-        "@type": "Thing",
-        "name": "RESEARCH_AREA_1"
-      },
-      {
-        "@type": "Thing", 
-        "name": "RESEARCH_AREA_2"
-      }
-    ]
-  }
-  </script>
-  
-  <!-- Website/Organization Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "INSTITUTION_OR_LAB_NAME",
-    "url": "https://YOUR_INSTITUTION_WEBSITE.com",
-    "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",
-    "sameAs": [
-      "https://twitter.com/YOUR_TWITTER_HANDLE",
-      "https://github.com/YOUR_GITHUB_USERNAME"
-    ]
-  }
-  </script>
+  <style>
+    .authors a { text-decoration: none; border-bottom: 1px solid transparent; transition: .2s; }
+    .authors a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+    .authors > span { display: inline-flex; align-items: baseline; white-space: nowrap; line-height: 1.5; }
+    .authors sup { position: relative; top: -.35em; margin-left: 2px; font-size: .58em; line-height: 0; }
+    .affiliations > span { display: block; }
+    .affiliations small { display: block; margin-top: 5px; }
+    .hero-actions .button i { width: 16px; text-align: center; font-size: 14px; }
+    .hero-actions .ai-arxiv { color: #b31b1b; font-size: 17px; }
+    .eyebrow a { text-decoration: none; border-bottom: 1px solid currentColor; }
+    .eyebrow a:hover { opacity: .7; }
+    .result-metrics article { background: #fff; color: var(--ink); border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(26, 39, 67, .05); }
+    .result-metrics span, .result-metrics small { color: var(--muted); }
+    .result-metrics strong { color: var(--blue); }
+    #dataset .stats { grid-template-columns: repeat(3, 1fr); margin: 0 0 32px; }
+    #abstract .section-label { margin-bottom: 8px; }
+    .method-slider { position: relative; margin-bottom: 56px; outline: none; }
+    .results-slider, .dataset-slider { position: relative; outline: none; }
+    .data-diversity-slide img { width: min(82%, 920px); margin-inline: auto; }
+    @media (max-width: 760px) { .data-diversity-slide img { width: 100%; } }
+    .method-slide { display: none; margin: 0; }
+    .method-slide.is-active { display: block; animation: slider-fade .35s ease; }
+    .slider-arrow { position: absolute; top: 50%; z-index: 2; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; background: rgba(255,255,255,.94); color: var(--ink); box-shadow: 0 5px 18px rgba(26,39,67,.12); cursor: pointer; transform: translateY(-70%); font-size: 20px; }
+    .slider-arrow:hover { color: var(--blue); border-color: var(--blue); }
+    .slider-prev { left: -22px; }
+    .slider-next { right: -22px; }
+    .slider-dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+    .slider-dot { width: 9px; height: 9px; padding: 0; border: 0; border-radius: 50%; background: #cbd3df; cursor: pointer; transition: .2s; }
+    .slider-dot.is-active { width: 24px; border-radius: 99px; background: var(--blue); }
+    @keyframes slider-fade { from { opacity: .25; } to { opacity: 1; } }
+    @media (max-width: 760px) { .slider-prev { left: 4px; } .slider-next { right: 4px; } .slider-arrow { width: 38px; height: 38px; } }
+    #abstract.reveal { opacity: 1; transform: none; }
+    @media (max-width: 760px) { #dataset .stats { grid-template-columns: 1fr; } }
+    .figure-card { background: transparent; border: 0; border-radius: 0; padding: 0; box-shadow: none; overflow: visible; }
+    .figure-card img { border-radius: 0; }
+    .figure-card figcaption { padding-top: 10px; }
+    .band .figure-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); overflow: hidden; }
+    .band .figure-card img { border-radius: 10px; }
+    #dataset .stats { max-width: 720px; margin: 28px auto 36px; gap: 0; }
+    #dataset .stats div { padding: 8px 18px; background: transparent; border: 0; border-right: 1px solid var(--line); border-radius: 0; }
+    #dataset .stats div:last-child { border-right: 0; }
+    #dataset .stats strong { font-size: 25px; }
+    #dataset .stats span { font-size: 12px; }
+    @media (max-width: 760px) {
+      #dataset .stats { grid-template-columns: repeat(3, 1fr); max-width: 100%; }
+      #dataset .stats div { padding: 6px; }
+      #dataset .stats strong { font-size: 20px; }
+      #dataset .stats span { font-size: 10px; }
+    }
+    #citation pre { background: #eef1f5; color: var(--ink); border: 1px solid var(--line); }
+    footer { background: #e5e8ed; color: var(--muted); }
+    footer strong, footer a { color: var(--ink); }
+    .hero .project-title { margin: 14px auto 20px; font-size: clamp(56px, 6.5vw, 78px); line-height: 1; letter-spacing: -.05em; }
+    .publication-full-title { max-width: 1180px; margin: 0 auto 34px; color: var(--ink) !important; font: 700 clamp(24px, 2.8vw, 38px)/1.3 Manrope, sans-serif; letter-spacing: -.035em; }
+    .publication-full-title span { display: block; white-space: nowrap; }
+    .hero-actions .button, .hero-actions .button.primary { background: #fff; border-color: var(--line); color: var(--ink); box-shadow: 0 5px 18px rgba(26,39,67,.07); }
+    .hero-actions .button:hover, .hero-actions .button.primary:hover { background: #f3f5f8; border-color: #b7c0cf; color: var(--ink); }
+    .hero-actions .ai-arxiv { color: #b31b1b; }
+    .teaser .lead { max-width: 760px; margin-top: 22px; font: 500 clamp(16px, 1.7vw, 21px)/1.55 "DM Sans", sans-serif; letter-spacing: -.01em; }
+    @media (max-width: 760px) {
+      .hero .project-title { margin-bottom: 16px; font-size: 54px; }
+      .publication-full-title { font-size: 24px; line-height: 1.28; }
+      .publication-full-title span { display: inline; white-space: normal; }
+    }
+  </style>
 </head>
 <body>
-
-
-  <!-- Scroll to Top Button -->
-  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
-    <i class="fas fa-chevron-up"></i>
-  </button>
-
-  <!-- More Works Dropdown -->
-  <div class="more-works-container">
-    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
-      <i class="fas fa-flask"></i>
-      More Works
-      <i class="fas fa-chevron-down dropdown-arrow"></i>
-    </button>
-    <div class="more-works-dropdown" id="moreWorksDropdown">
-      <div class="dropdown-header">
-        <h4>More Works from Our Lab</h4>
-        <button class="close-btn" onclick="toggleMoreWorks()">
-          <i class="fas fa-times"></i>
-        </button>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">🎉Accepted at ECCV 2026🎉</p>
+        <h1 class="project-title"><span>PECA</span></h1>
+        <p class="publication-full-title"><span>A Benchmark for Heterogeneous Stereo Deblurring</span><span>with Physically- and Epipolar-constrained Cross Attention</span></p>
+        <div class="authors" aria-label="Authors">
+          <span><a href="https://github.com/shinhoju" target="_blank" rel="noopener">Hoju Shin</a><sup>*</sup></span><span><a href="https://arxiv.org/search/?query=Jiah+Kim&amp;searchtype=author" target="_blank" rel="noopener">Jiah Kim</a><sup>*</sup></span><span><a href="https://gymlab.github.io/" target="_blank" rel="noopener">Seung-Wook Kim</a></span><span><a href="https://openreview.net/profile?id=~Seo-Won_Ji2" target="_blank" rel="noopener">Seowon Ji</a><sup>†</sup></span>
+        </div>
+        <p class="affiliations"><sup>1</sup>Pukyong National University &nbsp;&nbsp; <sup>2</sup>Konkuk University<br><small><sup>*</sup>Equal contribution &nbsp; <sup>†</sup>Corresponding author</small></p>
+        <div class="hero-actions">
+          <a class="button primary" href="static/pdfs/PECA.pdf" target="_blank" rel="noopener"><span aria-hidden="true">↗</span> Paper</a>
+          <a class="button" href="https://github.com/shinhoju/PECA" target="_blank" rel="noopener"><span aria-hidden="true">⌘</span> Code</a>
+          <a class="button" href="#citation"><span aria-hidden="true">“</span> BibTeX</a>
+        </div>
       </div>
-      <div class="works-list">
-        <!-- TODO: Replace with your lab's related works -->
-        <a href="https://arxiv.org/abs/PAPER_ID_1" class="work-item" target="_blank">
-          <div class="work-info">
-            <!-- TODO: Replace with actual paper title -->
-            <h5>Paper Title 1</h5>
-            <!-- TODO: Replace with brief description -->
-            <p>Brief description of the work and its main contribution.</p>
-            <!-- TODO: Replace with venue and year -->
-            <span class="work-venue">Conference/Journal 2024</span>
+    </section>
+
+    <section class="teaser wrap reveal">
+      <figure class="figure-card hero-figure"><img src="static/images/teaser.png" alt="PECA performance gains across XYDeblur, Restormer, and NAFNet with a qualitative deblurring comparison"></figure>
+      <p class="lead">A sharper wide camera can guide a blur-degraded ultra-wide camera—if cross-view attention searches only where a physically valid match can exist.</p>
+    </section>
+
+    <section id="abstract" class="section wrap narrow reveal">
+      <div><div class="section-label">Motivation</div><h2>Heterogeneous cameras need a heterogeneous benchmark.</h2></div>
+      <p>Modern smartphones pair camera modules with very different optics and stabilization. The primary wide camera often produces a sharp view, while the ultra-wide camera—typically without optical image stabilization—suffers stronger motion blur. Existing stereo benchmarks largely assume two homogeneous cameras and do not capture this asymmetric degradation.</p>
+      <p>We introduce the <strong>Heterogeneous Stereo Deblurring (HSD)</strong> dataset and <strong>PECA</strong>, a lightweight, architecture-agnostic cross-view fusion module. PECA limits correspondence search to a directional epipolar window bounded by camera optics, retrieves reliable details from the sharp reference, and falls back to self-deblurring where correspondence is uncertain.</p>
+    </section>
+
+    <section id="dataset" class="section band reveal">
+      <div class="wrap">
+        <div class="split-heading"><div><div class="section-label">HSD Benchmark</div><h2>Real captures, controlled blur.</h2></div><p>HSD is built from synchronized, device-rectified wide and ultra-wide smartphone videos. Temporal integration simulates exposure-induced ultra-wide blur while the center frame provides the sharp target.</p></div>
+        <div class="figure-slider dataset-slider" aria-label="HSD benchmark figures" tabindex="0">
+          <div class="method-slides">
+            <figure class="figure-card method-slide is-active"><img loading="lazy" src="static/images/DB.png" alt="HSD benchmark construction from real heterogeneous smartphone stereo captures"><figcaption>Hardware-induced blur asymmetry and the HSD construction protocol.</figcaption></figure>
+            <figure class="figure-card method-slide data-diversity-slide"><img loading="lazy" src="static/images/data_diversity.webp" alt="Diverse scenes and capture conditions in the HSD dataset"><figcaption>HSD contains diverse indoor and outdoor scenes, lighting conditions, motion patterns, and depth distributions.</figcaption></figure>
           </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-        <!-- TODO: Add more related works or remove extra items -->
-        <a href="https://arxiv.org/abs/PAPER_ID_2" class="work-item" target="_blank">
-          <div class="work-info">
-            <h5>Paper Title 2</h5>
-            <p>Brief description of the work and its main contribution.</p>
-            <span class="work-venue">Conference/Journal 2023</span>
+          <button class="slider-arrow slider-prev" type="button" aria-label="Previous dataset figure">&#10094;</button>
+          <button class="slider-arrow slider-next" type="button" aria-label="Next dataset figure">&#10095;</button>
+          <div class="slider-dots" role="tablist" aria-label="Choose a dataset figure">
+            <button class="slider-dot is-active" type="button" aria-label="Show HSD construction" aria-selected="true"></button>
+            <button class="slider-dot" type="button" aria-label="Show HSD data diversity" aria-selected="false"></button>
           </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-        <a href="https://arxiv.org/abs/PAPER_ID_3" class="work-item" target="_blank">
-          <div class="work-info">
-            <h5>Paper Title 3</h5>
-            <p>Brief description of the work and its main contribution.</p>
-            <span class="work-venue">Conference/Journal 2023</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
+        </div>
+      </div>      
+      <div class="stats" aria-label="HSD dataset statistics">
+        <div><strong>384</strong><span>captured sequences</span></div>
+        <div><strong>2,200</strong><span>training pairs</span></div>
+        <div><strong>1,100</strong><span>test pairs</span></div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <main id="main-content">
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <!-- TODO: Replace with your paper title -->
-            <h1 class="title is-1 publication-title">Academic Project Page</h1>
-            <div class="is-size-5 publication-authors">
-              <!-- TODO: Replace with your paper authors and their personal links -->
-              <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">First Author</a><sup>*</sup>,</span>
-                <span class="author-block">
-                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a><sup>*</sup>,</span>
-                  <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Third Author</a>
-                  </span>
-                  </div>
+    <section id="method" class="section wrap reveal">
+      <div class="split-heading"><div><div class="section-label">PECA</div><h2>Search less. Match better.</h2></div><p>Rectification reduces correspondence to one epipolar line. Camera optics provide a maximum physically feasible disparity. PECA combines both constraints to remove impossible candidates before attention is computed.</p></div>
+      <div class="figure-slider method-slider" aria-label="PECA method figures" tabindex="0">
+        <div class="method-slides">
+          <figure class="figure-card method-slide is-active"><img loading="lazy" src="static/images/overview.png" alt="Overall PECA architecture for heterogeneous stereo deblurring"><figcaption>Overall architecture. PECA retrieves cross-view features from the sharp wide-camera reference.</figcaption></figure>
+          <figure class="figure-card method-slide"><img loading="lazy" src="static/images/mechanism.png" alt="PECA geometric mechanism and comparison of attention search ranges"><figcaption>PECA searches a bounded, one-sided interval instead of the full image or full scanline.</figcaption></figure>
+        </div>
+        <button class="slider-arrow slider-prev" type="button" aria-label="Previous figure">&#10094;</button>
+        <button class="slider-arrow slider-next" type="button" aria-label="Next figure">&#10095;</button>
+        <div class="slider-dots" role="tablist" aria-label="Choose a method figure">
+          <button class="slider-dot is-active" type="button" aria-label="Show architecture overview" aria-selected="true"></button>
+          <button class="slider-dot" type="button" aria-label="Show PECA mechanism" aria-selected="false"></button>
+        </div>
+      </div>
+      <div class="steps">
+        <article><span>1</span><h3>Physical bound</h3><p>Derive the maximum disparity from focal length, baseline, and minimum focus distance.</p></article>
+        <article><span>2</span><h3>Epipolar search</h3><p>Restrict keys and values to a directional 1D window along the rectified scanline.</p></article>
+        <article><span>3</span><h3>Residual fusion</h3><p>Inject reference detail according to matching confidence while preserving target-view features.</p></article>
+      </div>
+    </section>
 
-                  <div class="is-size-5 publication-authors">
-                    <!-- TODO: Replace with your institution and conference/journal info -->
-                    <span class="author-block">Institution Name<br>Conference name and year</span>
-                    <!-- TODO: Remove this line if no equal contribution -->
-                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
-                  </div>
-
-                  <div class="column has-text-centered">
-                    <div class="publication-links">
-                         <!-- TODO: Update with your arXiv paper ID -->
-                      <span class="link-block">
-                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
-                        class="external-link button is-normal is-rounded is-dark">
-                        <span class="icon">
-                          <i class="fas fa-file-pdf"></i>
-                        </span>
-                        <span>Paper</span>
-                      </a>
-                    </span>
-
-                    <!-- TODO: Add your supplementary material PDF or remove this section -->
-                    <span class="link-block">
-                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Supplementary</span>
-                    </a>
-                  </span>
-
-                  <!-- TODO: Replace with your GitHub repository URL -->
-                  <span class="link-block">
-                    <a href="https://github.com/YOUR REPO HERE" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
-
-                <!-- TODO: Update with your arXiv paper ID -->
-                <span class="link-block">
-                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-            </div>
+    <section id="results" class="section band results reveal">
+      <div class="wrap">
+        <div class="split-heading"><div><div class="section-label">Results</div><h2>Consistent gains across architectures.</h2></div><p>PECA improves CNN-, Transformer-, and NAFNet-based models on HSD, with only 4.8G module MACs and 83.1K parameters in the controlled fusion comparison.</p></div>
+        <div class="result-metrics">
+          <article><span>XYDeblur</span><strong>+1.57 dB</strong><small>over single-view baseline</small></article>
+          <article><span>Restormer</span><strong>+1.53 dB</strong><small>over single-view baseline</small></article>
+          <article><span>NAFNet</span><strong>+0.78 dB</strong><small>over single-view baseline</small></article>
+        </div>
+        <div class="figure-slider results-slider" aria-label="PECA result figures" tabindex="0">
+          <div class="method-slides">
+            <figure class="figure-card method-slide is-active"><img loading="lazy" src="static/images/test_peca_final.png" alt="Qualitative PECA comparisons on XYDeblur, Restormer, and NAFNet"><figcaption>PECA restores sharper structures than the same backbones without cross-view constrained attention.</figcaption></figure>
+            <figure class="figure-card method-slide"><img loading="lazy" src="static/images/real_peca.png" alt="Additional real-world qualitative PECA deblurring results"><figcaption>Qualitative comparison on real handheld stereo captures without ground truth.</figcaption></figure>
+          </div>
+          <button class="slider-arrow slider-prev" type="button" aria-label="Previous result">&#10094;</button>
+          <button class="slider-arrow slider-next" type="button" aria-label="Next result">&#10095;</button>
+          <div class="slider-dots" role="tablist" aria-label="Choose a result figure">
+            <button class="slider-dot is-active" type="button" aria-label="Show benchmark comparison" aria-selected="true"></button>
+            <button class="slider-dot" type="button" aria-label="Show real-world results" aria-selected="false"></button>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-
-<!-- Teaser video-->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <!-- TODO: Replace with your teaser video -->
-      <video poster="" id="tree" autoplay controls muted loop height="100%" preload="metadata">
-        <!-- TODO: Add your video file path here -->
-        <source src="static/videos/banner_video.mp4" type="video/mp4">
-      </video>
-      <!-- TODO: Replace with your video description -->
-      <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
-    </div>
-  </div>
-</section>
-<!-- End teaser video -->
-
-<!-- Paper abstract -->
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <!-- TODO: Replace with your paper abstract -->
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam tempus. Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End paper abstract -->
-
-
-<!-- Image carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- TODO: Replace with your research result images -->
-        <img src="static/images/carousel1.jpg" alt="First research result visualization" loading="lazy"/>
-        <!-- TODO: Replace with description of this result -->
-        <h2 class="subtitle has-text-centered">
-          First image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel2.jpg" alt="Second research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-          Second image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel3.jpg" alt="Third research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-         Third image description.
-       </h2>
-     </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="static/images/carousel4.jpg" alt="Fourth research result visualization" loading="lazy"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
-    </div>
-  </div>
-</div>
-</div>
-</section>
-<!-- End image carousel -->
-
-
-
-
-<!-- Youtube video -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <!-- Paper video. -->
-      <h2 class="title is-3">Video Presentation</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          
-          <div class="publication-video">
-            <!-- TODO: Replace with your YouTube video ID -->
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End youtube video -->
-
-
-<!-- Video carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Another Carousel</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video1" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel1.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video2" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel2.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video3" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel3.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End video carousel -->
-
-
-
-
-
-
-<!-- Paper poster -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
-
-      <!-- TODO: Replace with your poster PDF -->
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-        
-      </div>
-    </div>
-  </section>
-<!--End paper poster -->
-
-
-
-<!--BibTex citation -->
-  <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-      <div class="bibtex-header">
-        <h2 class="title">BibTeX</h2>
-        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
-          <i class="fas fa-copy"></i>
-          <span class="copy-text">Copy</span>
-        </button>
-      </div>
-      <pre id="bibtex-code"><code>@article{YourPaperKey2024,
-  title={Your Paper Title Here},
-  author={First Author and Second Author and Third Author},
-  journal={Conference/Journal Name},
-  year={2024},
-  url={https://your-domain.com/your-project-page}
+    <section id="citation" class="section wrap narrow reveal">
+      <div class="section-label">Citation</div>
+      <div class="citation-heading"><h2>BibTeX</h2><button id="copy-bibtex" type="button">Copy citation</button></div>
+      <pre><code id="bibtex">@inproceedings{shin2026peca,
+  title     = {A Benchmark for Heterogeneous Stereo Deblurring with
+               Physically- and Epipolar-constrained Cross Attention},
+  author    = {Shin, Hoju and Kim, Jiah and Kim, Seung-Wook and Ji, Seowon},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  year      = {2026}
 }</code></pre>
-    </div>
-</section>
-<!--End BibTex citation -->
+    </section>
+  </main>
 
-
-  <footer class="footer">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-
-          <p>
-            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<!-- Statcounter tracking code -->
-  
-<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
-
-    <!-- End of Statcounter Code -->
-
-  </body>
-  </html>
+  <footer><div class="wrap"><strong>PECA</strong><p>This website is based on the <a href="https://nerfies.github.io/" target="_blank" rel="noopener">Nerfies</a> project page and is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</p></div></footer>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+</body>
+</html>
